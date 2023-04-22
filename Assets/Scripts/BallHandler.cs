@@ -5,10 +5,16 @@ using UnityEngine.InputSystem;
 
 public class BallHandler : MonoBehaviour
 {
+  private Camera mainCamera;
+
+  void Awake()
+  {
+    mainCamera = Camera.main;
+  }
+
   // Start is called before the first frame update
   void Start()
   {
-
   }
 
   // Update is called once per frame
@@ -22,8 +28,9 @@ public class BallHandler : MonoBehaviour
 
     // get current touch position
     Vector2 touchPosition = GetCurrentTouchPosition();
+    Vector3 worldPosition = mainCamera.ScreenToWorldPoint(touchPosition);
 
-    Debug.Log(touchPosition);
+    Debug.Log(worldPosition);
   }
 
   Vector2 GetCurrentTouchPosition()
