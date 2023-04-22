@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 
 public class BallHandler : MonoBehaviour
 {
-  // [SerializeField] private Rigidbody2D currentBallRigidBody;
-  // [SerializeField] private SpringJoint2D currentBallSpringJoint;
 
   private Ball currentBall;
   private Camera mainCamera;
@@ -62,17 +60,5 @@ public class BallHandler : MonoBehaviour
     return Touchscreen.current.primaryTouch.press.isPressed;
   }
 
-  // private void LaunchBall()
-  // {
-  //   currentBallRigidBody.isKinematic = false; // affected by physics system
-  //   currentBallRigidBody = null; // clear the reference
 
-  //   Invoke("DetachBall", delayDuration);
-  // }
-
-  // private void DetachBall()
-  // {
-  //   currentBallSpringJoint.enabled = false; // it won't try to pull the ball anymore;
-  //   currentBallSpringJoint = null;
-  // }
 }

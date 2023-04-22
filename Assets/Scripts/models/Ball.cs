@@ -7,8 +7,6 @@ public class Ball : MonoBehaviour
   [SerializeField] private Rigidbody2D rigidBody;
   [SerializeField] private SpringJoint2D springJoint;
 
-
-
   // Start is called before the first frame update
   void Start()
   {
