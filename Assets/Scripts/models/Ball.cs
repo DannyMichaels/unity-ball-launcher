@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-  [SerializeField] private Rigidbody2D rigidBody;
-  [SerializeField] private SpringJoint2D springJoint;
+  public static Ball instance; // instance = Singleton: create a version of this script that only one version of it can exist
+  public Rigidbody2D rigidBody;
+  public SpringJoint2D springJoint;
+
+  void Awake()
+  {
+    instance = this;
+  }
 
   // Start is called before the first frame update
   void Start()
@@ -42,6 +48,7 @@ public class Ball : MonoBehaviour
 
     Invoke(nameof(Detach), delayDuration);
   }
+
 
   public void Detach()
   {
