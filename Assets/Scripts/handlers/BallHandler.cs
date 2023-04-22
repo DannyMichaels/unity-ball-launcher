@@ -5,12 +5,17 @@ using UnityEngine.InputSystem;
 
 public class BallHandler : MonoBehaviour
 {
-  [SerializeField] private Rigidbody2D currentBallRigidBody;
+  // [SerializeField] private Rigidbody2D currentBallRigidBody;
+  // [SerializeField] private SpringJoint2D currentBallSpringJoint;
 
+  private Ball currentBall;
   private Camera mainCamera;
+  private bool isDragging;
+  public float delayDuration = .5f;
 
   void Awake()
   {
+    currentBall = FindObjectOfType<Ball>();
     mainCamera = Camera.main;
   }
 
@@ -22,21 +27,29 @@ public class BallHandler : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    if (!currentBall) return;
+
     // don't run the rest if we're not touching the touch screen
     if (!IsTouchScreenPressed())
     {
-      currentBallRigidBody.isKinematic = false; // affected by physics system
+      if (isDragging)
+      {
+        currentBall.Launch(delayDuration);
+      }
+
+      isDragging = false;
       return;
     }
 
-    currentBallRigidBody.isKinematic = true; // no longer affected by physics system;
+    isDragging = true;
+    currentBall.EnableKinematic();
 
     // get current touch position
     Vector2 touchPosition = GetCurrentTouchPosition(); //  touch position in terms of pixels on the screen
     Vector3 worldPosition = mainCamera.ScreenToWorldPoint(touchPosition); // position in terms of units inside the game world.
 
 
-    currentBallRigidBody.position = worldPosition;
+    currentBall.SetPosition(worldPosition);
   }
 
   Vector2 GetCurrentTouchPosition()
@@ -48,4 +61,18 @@ public class BallHandler : MonoBehaviour
   {
     return Touchscreen.current.primaryTouch.press.isPressed;
   }
+
+  // private void LaunchBall()
+  // {
+  //   currentBallRigidBody.isKinematic = false; // affected by physics system
+  //   currentBallRigidBody = null; // clear the reference
+
+  //   Invoke("DetachBall", delayDuration);
+  // }
+
+  // private void DetachBall()
+  // {
+  //   currentBallSpringJoint.enabled = false; // it won't try to pull the ball anymore;
+  //   currentBallSpringJoint = null;
+  // }
 }
