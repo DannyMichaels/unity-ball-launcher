@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class BallHandler : MonoBehaviour
 {
+  [SerializeField] private Rigidbody2D currentBallRigidBody;
+
   private Camera mainCamera;
 
   void Awake()
@@ -23,14 +25,18 @@ public class BallHandler : MonoBehaviour
     // don't run the rest if we're not touching the touch screen
     if (!IsTouchScreenPressed())
     {
+      currentBallRigidBody.isKinematic = false; // affected by physics system
       return;
     }
 
-    // get current touch position
-    Vector2 touchPosition = GetCurrentTouchPosition();
-    Vector3 worldPosition = mainCamera.ScreenToWorldPoint(touchPosition);
+    currentBallRigidBody.isKinematic = true; // no longer affected by physics system;
 
-    Debug.Log(worldPosition);
+    // get current touch position
+    Vector2 touchPosition = GetCurrentTouchPosition(); //  touch position in terms of pixels on the screen
+    Vector3 worldPosition = mainCamera.ScreenToWorldPoint(touchPosition); // position in terms of units inside the game world.
+
+
+    currentBallRigidBody.position = worldPosition;
   }
 
   Vector2 GetCurrentTouchPosition()
