@@ -40,7 +40,7 @@ public class Ball : MonoBehaviour
     rigidBody.isKinematic = false; // affected by physics system
     rigidBody = null; // clear the reference
 
-    Invoke("Detach", delayDuration);
+    Invoke(nameof(Detach), delayDuration);
   }
 
   public void Detach()

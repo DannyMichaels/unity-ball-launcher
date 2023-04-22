@@ -9,7 +9,7 @@ public class BallHandler : MonoBehaviour
   private Ball currentBall;
   private Camera mainCamera;
   private bool isDragging;
-  public float delayDuration = .5f;
+  public float detachDelayDuration = .5f;
 
   void Awake()
   {
@@ -32,7 +32,7 @@ public class BallHandler : MonoBehaviour
     {
       if (isDragging)
       {
-        currentBall.Launch(delayDuration);
+        currentBall.Launch(detachDelayDuration);
       }
 
       isDragging = false;
@@ -59,6 +59,4 @@ public class BallHandler : MonoBehaviour
   {
     return Touchscreen.current.primaryTouch.press.isPressed;
   }
-
-
 }
